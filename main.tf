@@ -91,9 +91,16 @@ data "aws_iam_policy_document" "aws_cloud_map_iam_policy_document" {
     sid = "AWSCloudMapAccess"
     effect = "Allow"
     actions = [
-      "ec2:DescribeVpcs",
-      "ec2:DescribeSubnets",
-      "ec2:DescribeSecurityGroups"
+      "servicediscovery:CreatePrivateDnsNamespace",
+      "servicediscovery:DeleteNamespace",
+      "servicediscovery:GetNamespace",
+      "servicediscovery:ListNamespaces",
+      "servicediscovery:UpdateNamespace",
+      "route53:CreatePrivateHostedZone",
+      "route53:DeleteHostedZone",
+      "route53:GetHostedZone",
+      "route53:ListHostedZones",
+      "route53:ChangeResourceRecordSets"
     ]
     resources = var.vpc_arn
   }
