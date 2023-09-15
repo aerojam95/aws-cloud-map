@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "aws_cloud_map_assume_role" {
     sid = "AWSCloudMapAssumeRole"
     principals {
       type        = "Service"
-      identifiers = ["servicediscovery.amazonaws.com"]
+      identifiers = ["vpc.amazonaws.com"]
     }
     effect = "Allow"
     actions = ["sts:AssumeRole"]
@@ -88,22 +88,27 @@ data "aws_iam_policy_document" "aws_cloud_map_iam_policy_document" {
   count = local.create_aws_cloud_map_iam_role ? 1 : 0
 
   statement {
-    sid = "AWSCloudMapAccess"
-    effect = "Allow"
-    actions = [
-      "servicediscovery:CreatePrivateDnsNamespace",
-      "servicediscovery:DeleteNamespace",
-      "servicediscovery:GetNamespace",
-      "servicediscovery:ListNamespaces",
-      "servicediscovery:UpdateNamespace",
-      "route53:CreatePrivateHostedZone",
-      "route53:DeleteHostedZone",
-      "route53:GetHostedZone",
-      "route53:ListHostedZones",
-      "route53:ChangeResourceRecordSets"
-    ]
-    resources = var.vpc_arn
-  }
+        sid = "AllowVpcNamespaceAccess"
+        effect = "Allow"
+        actions = [
+          "servicediscovery:CreatePrivateDnsNamespace",
+          "servicediscovery:DeleteNamespace",
+          "servicediscovery:GetNamespace",
+          "servicediscovery:CreateService",
+          "servicediscovery:DeleteService",
+          "servicediscovery:GetService"
+        ]
+        resources = [aws_service_discovery_private_dns_namespace.this[0].arn]
+        principals {
+          type        = "Service"
+          identifiers = ["vpc.amazonaws.com"]
+        }
+        condition {
+          test     = "ArnLike"
+          variable = "aws:SourceArn"
+          values   = [var.vpc_arn]
+        }
+      }
 
 }
 
