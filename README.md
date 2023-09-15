@@ -1,7 +1,6 @@
 # aws-cloud-map Terraform module
 
-Terraform module that creates AWS cloud map namespaces and services with access
-to local VPCs on AWS.
+Terraform module that creates AWS cloud map namespaces and services within local VPCs on AWS.
 
 ## Usage
 
