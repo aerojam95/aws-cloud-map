@@ -106,7 +106,7 @@ data "aws_iam_policy_document" "aws_cloud_map_iam_policy_document" {
         condition {
           test     = "ArnLike"
           variable = "aws:SourceArn"
-          values   = [var.vpc_arn]
+          values   = var.vpc_arn
         }
       }
 
