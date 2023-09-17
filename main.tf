@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "aws_cloud_map_assume_role" {
     sid = "AWSCloudMapAssumeRole"
     principals {
       type        = "Service"
-      identifiers = ["vpc.amazonaws.com"]
+      identifiers = ["ec2.amazonaws.com"]
     }
     effect = "Allow"
     actions = ["sts:AssumeRole"]
