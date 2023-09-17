@@ -23,7 +23,7 @@ output "namespace_tags" {
 }
 
 output "aws_cloud_map_iam_role_arn" {
-  description = "The ARN of the IAM role used when pushing logs to Cloudwatch log group"
+  description = "The ARN of the IAM role for vpc to use aws cloud map service"
   value       =  try(aws_iam_role.aws_cloud_map_iam_role[0].arn, null)
 }
 
