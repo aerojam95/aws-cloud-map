@@ -99,10 +99,6 @@ data "aws_iam_policy_document" "aws_cloud_map_iam_policy_document" {
           "servicediscovery:GetService"
         ]
         resources = [aws_service_discovery_private_dns_namespace.this[0].arn]
-        principals {
-          type        = "Service"
-          identifiers = ["vpc.amazonaws.com"]
-        }
         condition {
           test     = "ArnLike"
           variable = "aws:SourceArn"
